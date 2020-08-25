@@ -1,5 +1,5 @@
 {
-  "name": "red-contrib-tasmota-zigbee-msgsplit",
+  "name": "node-red-contrib-tasmota-zigbee-msgsplit",
   "version": "0.0.1",
   "description": "Split the message catalog from zigbee2mqqt into single messages",
   "main": "./src/tasmota-zigbee-msgsplit.js",

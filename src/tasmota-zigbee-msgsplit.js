@@ -51,7 +51,7 @@ const func = (RED) => {
                  *  }
                  * }"
                  */
-                const zbReceived = msg.payload.ZbReceived;
+                const zbReceived = msg.payload["ZbReceived"];
                 if (zbReceived !== undefined && zbReceived !== null) {
                     for (const messageId in zbReceived) {
                         const message = { payload: zbReceived[messageId] };
