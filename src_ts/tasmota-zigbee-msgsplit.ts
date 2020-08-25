@@ -1,7 +1,7 @@
-import { Node, Red } from "node-red";
+import { Node, Red, NodeProperties } from "node-red";
 
 const func = (RED: Red) => {
-    const tasmotaZigbeeMsgSplit = function (config: any) {
+    const tasmotaZigbeeMsgSplit = function (config: NodeProperties) {
         const node: Node = this;
 
         RED.nodes.createNode(node, config);
@@ -47,8 +47,14 @@ const func = (RED: Red) => {
              * }"
              */
 
-            msg.payload = "hi";
-            send(msg);
+            const zbReceived = msg.payload.ZbReceived;
+            if (zbReceived !== undefined && zbReceived !== null) {
+                for (const messageId in zbReceived) {
+                    const message = { payload: zbReceived[messageId] };
+                    send(message);
+                }
+            }
+
 
 
             // Once finished, call 'done'.

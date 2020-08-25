@@ -23,8 +23,41 @@ const func = (RED) => {
                 // If this node is installed in Node-RED 0.x, it will need to
                 // fallback to using `node.send`
                 send = send || function () { node.send.apply(node, arguments); };
-                msg.payload = "hi";
-                send(msg);
+                /**
+                 * {"ZbReceived":
+                 *  {"0x6DBE":
+                 *      {   "Device":"0x6DBE",
+                 *          "Name":"TmpSens1",
+                 *          "ModelId":"lumi.sensor_ht",
+                 *          "Endpoint":1,
+                 *          "LinkQuality":149
+                 *      }
+                 *  }
+                 * }
+                 *
+                 * "{"ZbReceived":
+                 *  {"0x6DBE":
+                 *      {   "Device":"0x6DBE",
+                 *          "Name":"TmpSens1",
+                 *          "BatteryVoltage":3.025,
+                 *          "BatteryPercentage":100,
+                 *          "Voltage":3.025,
+                 *          "Battery":100,
+                 *          "Temperature":24.46,
+                 *          "Humidity":48.76,
+                 *          "Endpoint":1,
+                 *          "LinkQuality":149
+                 *      }
+                 *  }
+                 * }"
+                 */
+                const zbReceived = msg.payload.ZbReceived;
+                if (zbReceived !== undefined && zbReceived !== null) {
+                    for (const messageId in zbReceived) {
+                        const message = { payload: zbReceived[messageId] };
+                        send(message);
+                    }
+                }
                 // Once finished, call 'done'.
                 // This call is wrapped in a check that 'done' exists
                 // so the node will work in earlier versions of Node-RED (<1.0)
