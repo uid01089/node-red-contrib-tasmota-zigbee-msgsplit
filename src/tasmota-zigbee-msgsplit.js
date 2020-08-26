@@ -51,12 +51,10 @@ const func = (RED) => {
                  *  }
                  * }"
                  */
-                this.log("Something happened");
-                this.log(msg);
-                const zbReceived = msg.payload["ZbReceived"];
+                const zbReceived = JSON.parse(msg.payload)["ZbReceived"];
                 if (zbReceived !== undefined && zbReceived !== null) {
                     for (const messageId in zbReceived) {
-                        const message = { payload: zbReceived[messageId] };
+                        const message = { payload: JSON.stringify(zbReceived[messageId]) };
                         send(message);
                     }
                 }
