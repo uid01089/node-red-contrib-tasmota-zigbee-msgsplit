@@ -24,5 +24,27 @@
 </script>
 
 <script type="text/html" data-help-name="tasmota-zigbee-msgsplit">
-    <p>A simple node that converts the message payloads into all lower-case characters</p>
+    <p>
+        Input is a message mqqt message object containing different payloads:
+        <code>
+        const testMsg = {
+            payload: '{"ZbReceived":{"0x6DBE":{"Device":"0x6DBE","Name":"TmpSens1","BatteryVoltage":3.005,"BatteryPercentage":100,"Voltage":3.005,"Battery":100,"Temperature":27.17,"Humidity":51.87,"Endpoint":1,"LinkQuality":39}}}'
+        };
+        </code>
+        
+        tasmota-zigbee-msgsplit reads in the data containing the bunch of paylaods, 
+        separates the single payload and provided the certain separated information.
+        <br>
+        
+        
+    </p>
+    <h3>Outputs</h3>
+     <ol class="node-ports">
+         <li>Standard output
+             <dl class="message-properties">
+                 <dt>Payload <span class="property-type">string</span></dt>
+                 <dd>the standard output of the command.</dd>
+             </dl>
+         </li>
+     </ol>
 </script>
